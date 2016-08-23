@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    
+    
+    
+    <link rel='stylesheet prefetch' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
+
+        <link rel="stylesheet" href="css/style.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+   <script language="javascript">
+   function ajax_get(url, callback) {
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            console.log('responseText:' + xmlhttp.responseText);
+            try {
+                var data = JSON.parse(xmlhttp.responseText);
+            } catch(err) {
+                console.log(err.message + " in " + xmlhttp.responseText);
+                return;
+            }
+            callback(data);
+        }
+    };
+ 
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+}
+   function login(){
+ajax_get('/login', function(data1) {
+var data = $(data1).filter(function (i,n){return n.value.username===document.getElementById("user").value});
+var data2 = $(data).filter(function (i,n){return n.value.password===document.getElementById("pass").value});
+	if (data2.length>0){
+		alert("Welcome back! Login Successfully!");
+		document.cookie = "username="+document.getElementById("user").value;
+		window.location='index.html';
+	}else{
+		alert("Username or password incorrect, please try again!");
+	}
+});
+}
+
+  </script>
+  </head>
+
+  <body background="img/Hong Kong.jpg" style="background-repeat: no-repeat;">
+	<div style="height:150px;"></div>
+    <div class="login-card">
+    <h1></h1><center><h2>Weather</center></h2><br>
+    <input type="text" id="user" placeholder="Username">
+    <input type="password" id="pass" placeholder="Password" onkeydown="if (event.keyCode == 13) { login(); return false; }">
+    <input type="button" id="login" value="Login" onclick="login();" style="text-align: center;font-size: 14px;font-family: 'Arial', sans-serif;font-weight: 700;height: 36px;padding: 0 8px;border: 0px;color: #fff;text-shadow: 0 1px rgba(0,0,0,0.1); background-color: #4d90fe;">
+	<div id="error" style="color:#FF0000;font-family: '微軟正黑體', sans-serif;font-weight: 100;"></div>
+
+    
+  <div class="login-help">
+    <a href="#">Forgot Password</a>
+  </div></p>
+  <div class="login-help"></div>
+</div>
+
+
+    
+    
+    
+    
+  </body>
+</html>

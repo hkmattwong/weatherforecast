@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+<script>
+var temp_data = [];
+var User = function (id,username, name, email, age) {
+	this.id = id;
+	this.username = username;
+	this.name = name;
+	this.email = email;
+	this.age = age;
+};
+
+function ajax_get(url, callback) {
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            console.log('responseText:' + xmlhttp.responseText);
+            try {
+                var data = JSON.parse(xmlhttp.responseText);
+            } catch(err) {
+                console.log(err.message + " in " + xmlhttp.responseText);
+                return;
+            }
+            callback(data);
+        }
+    };
+ 
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+}
+	function validateForm(){
+	var inputs = document.getElementsByTagName('input');
+	var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+	for (var index = 0; index < inputs.length; ++index) {
+		if (inputs[index].value==""){
+			alert(inputs[index].placeholder+" cannot be empty.");
+			return false;
+			break;
+		}
+		if (document.getElementById('password').value != document.getElementById('againpassword').value){
+			alert("Password and Again Password not match.");
+			return false;
+			break;
+		}
+		if (document.getElementById('password').length<5){
+			alert("Password length must be >=6.");
+			return false;
+			break;
+		}
+	}
+	for (var index = 0; index < temp_data.length; ++index) {
+		if (temp_data[index].username == document.getElementById('user').value){
+				alert("Your username is already taken! Please change other username.");
+				return false;
+				break;
+		}
+	}
+	alert("Your account create successfully!");
+}
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+
+    <body background="img/Hong Kong.jpg" style="background-repeat: no-repeat;">
+	<div style="height:150px;"></div>
+    <div class="register_form">
+    <h1>Registration</h1><center><br>
+	<form action="insert" method="get" onsubmit="return validateForm()">
+    <input type="text" name="user" id="user" placeholder="Username">
+	<input type="password" name="password" id="password" placeholder="Password">
+	<input type="password" name="againpassword" id="againpassword" placeholder="Again Password">
+	<input type="text" name="name" id="name" placeholder="Name">
+	<input type="email" name="email" id="email" placeholder="Email Address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+	<input type="number" name="age" id="age" placeholder="Age">
+    <input type="submit" name="sumbit" id="sumbit" value="Submit" style="text-align: center;font-size: 14px;font-family: 'Arial', sans-serif;font-weight: 700;height: 36px;padding: 0 8px;border: 0px;color: #fff;text-shadow: 0 1px rgba(0,0,0,0.1); background-color: #4d90fe;">
+	</form>
+	</p>
+	</div>
+ </body>
+</html>
