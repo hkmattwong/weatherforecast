@@ -1,0 +1,8 @@
+{
+  "_id" : "_design/weather",
+  "views" : {
+    "weather" : {
+      "map" : "function(doc){ emit(null, doc)}"
+    }
+  }
+}

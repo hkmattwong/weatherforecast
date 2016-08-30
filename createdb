@@ -1,0 +1,3 @@
+$ curl -X PUT http://127.0.0.1:8080/assignment
+curl -X PUT http://127.0.0.1:8080/assignment/_design/weather --data-binary @mydesign.json
+curl -X POST http://127.0.0.1:5984/assignment -d '{}' -H "Content-Type: application/json"
