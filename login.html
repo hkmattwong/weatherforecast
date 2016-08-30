@@ -11,11 +11,10 @@
 
         <link rel="stylesheet" href="css/style.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
-<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
    <script language="javascript">
-   function ajax_get(url, callback) {
+   function ajax_get(url, callback) {   //get the login data
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -33,7 +32,7 @@
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
-   function login(){
+   function login(){      //login function
 ajax_get('/login', function(data1) {
 var data = $(data1).filter(function (i,n){return n.value.username===document.getElementById("user").value});
 var data2 = $(data).filter(function (i,n){return n.value.password===document.getElementById("pass").value});

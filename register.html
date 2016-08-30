@@ -31,7 +31,7 @@ function ajax_get(url, callback) {
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
-	function validateForm(){
+	function validateForm(){  // input error checking
 	var inputs = document.getElementsByTagName('input');
 	var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
 	for (var index = 0; index < inputs.length; ++index) {

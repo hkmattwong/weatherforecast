@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-   <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <title>Weather Forecast</title>
@@ -21,13 +21,13 @@ weekday[5]="Saturday";
 weekday[6]="Sunday";
 console.log("Today is " + weekday[3]);
 var currectloction="";
-		function timeConverter(UNIX_timestamp){
+		function timeConverter(UNIX_timestamp){  // change the time
 			var eleDate = new Date(parseInt(UNIX_timestamp)*1000);
 		return eleDate.getFullYear()+"-"+("0" + (eleDate.getMonth() + 1)).slice(-2)+"-"+("0" + eleDate.getDate()).slice(-2)+" "
 		+("0" + eleDate.getHours()).slice(-2)+":"+("0" + eleDate.getMinutes()).slice(-2)+":"+("0" + eleDate.getSeconds()).slice(-2);
 
 		}
-function ajax_get(url, callback) {
+function ajax_get(url, callback) {   // get the data
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -45,13 +45,13 @@ function ajax_get(url, callback) {
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
-function day(time){
+function day(time){    // change the date
 	var eleDate = new Date(parseInt(time)*1000);
 		return ("0" + (eleDate.getMonth() + 1)).slice(-2)+"-"+("0" + eleDate.getDate()).slice(-2);
 	//var d = new Date(parseInt(time)*1000);
 	//return weekday[d.getDay()];
 }
-function search(name,e){
+function search(name,e){   // search the location
 	if (e.keyCode == 13) {	
 		document.getElementById("search").value="Please wait...Searching: "+name;
 	ajax_get("/search?loc="+name, function(data1) {
@@ -59,51 +59,53 @@ function search(name,e){
 		setTimeout(function(){ window.location='index.html'; }, 3000);
 	}
 }
-function search2(e){	
+function search2(e){	  // search the location
 	ajax_get("/search?loc="+e.innerHTML, function(data1) {
 	});
 		setTimeout(function(){ window.location='index.html'; }, 3000);
 }
 
-function start(){
-ajax_get('/getweather', function(data1) {
+function start(){    // start run
+   
+ajax_get('/getweather', function(data1) {  //get weather details
 		var data = $(data1).filter(function (i,n){return n.value.datetime!=null});
-		document.getElementsByClassName("location")[0].innerHTML = data[data.length-8].value.name;
-		document.getElementsByClassName("today")[0].innerHTML = timeConverter(data[data.length-8].value.datetime);
-		document.getElementsByClassName("weather-desc")[0].innerHTML = data[data.length-8].value.main+", "+data[data.length-8].value.desc;
+	   document.getElementsByClassName("location")[0].innerHTML = data[data.length-9].value.name;
+		document.getElementsByClassName("today")[0].innerHTML = timeConverter(data[data.length-9].value.datetime);
+		document.getElementsByClassName("weather-desc")[0].innerHTML = data[data.length-9].value.main+", "+data[data.length-9].value.desc;
 		//var temp = data[0].value.day.split(".");
-		document.getElementsByClassName("temperature")[0].innerHTML = parseFloat(data[data.length-8].value.day).toFixed(0);
-		document.getElementsByClassName("c1")[0].innerHTML = parseFloat(data[data.length-8].value.pressure).toFixed(0)+" pressure";
-		document.getElementsByClassName("c2")[0].innerHTML = parseFloat(data[data.length-8].value.humidity).toFixed(0)+"% humidity";
-		currectloction = data[data.length-8].value.name;
-		document.getElementsByClassName("week-day")[0].innerHTML = day(data[data.length-7].value.datetime);
-		document.getElementsByClassName("week-day")[1].innerHTML = day(data[data.length-6].value.datetime);
-		document.getElementsByClassName("week-day")[2].innerHTML = day(data[data.length-5].value.datetime);
-		document.getElementsByClassName("week-day")[3].innerHTML = day(data[data.length-4].value.datetime);
-		document.getElementsByClassName("week-day")[4].innerHTML = day(data[data.length-3].value.datetime);
-		document.getElementsByClassName("week-day")[5].innerHTML = day(data[data.length-2].value.datetime);
-		document.getElementsByClassName("week-day")[6].innerHTML = day(data[data.length-1].value.datetime);
-		document.getElementsByClassName("week-day-temperature")[0].innerHTML = parseFloat(data[data.length-7].value.day).toFixed(0);
-		document.getElementsByClassName("week-day-temperature")[1].innerHTML = parseFloat(data[data.length-6].value.day).toFixed(0);
-		document.getElementsByClassName("week-day-temperature")[2].innerHTML = parseFloat(data[data.length-5].value.day).toFixed(0);
-		document.getElementsByClassName("week-day-temperature")[3].innerHTML = parseFloat(data[data.length-4].value.day).toFixed(0);
-		document.getElementsByClassName("week-day-temperature")[4].innerHTML = parseFloat(data[data.length-3].value.day).toFixed(0);
-		document.getElementsByClassName("week-day-temperature")[5].innerHTML = parseFloat(data[data.length-2].value.day).toFixed(0);
-		document.getElementsByClassName("week-day-temperature")[6].innerHTML = parseFloat(data[data.length-1].value.day).toFixed(0);
-		document.getElementsByClassName("a")[0].className = "climacon "+data[data.length-7].value.main.toLowerCase().replace("clouds", "cloud").replace("clear", "sun");
-		document.getElementsByClassName("b")[0].className = "climacon "+data[data.length-6].value.main.toLowerCase().replace("clouds", "cloud").replace("clear", "sun");
-		document.getElementsByClassName("c")[0].className = "climacon "+data[data.length-5].value.main.toLowerCase().replace("clouds", "cloud").replace("clear", "sun");
-		document.getElementsByClassName("d")[0].className = "climacon "+data[data.length-4].value.main.toLowerCase().replace("clouds", "cloud").replace("clear", "sun");
-		document.getElementsByClassName("e")[0].className = "climacon "+data[data.length-3].value.main.toLowerCase().replace("clouds", "cloud").replace("clear", "sun");
-		document.getElementsByClassName("f")[0].className = "climacon "+data[data.length-2].value.main.toLowerCase().replace("clouds", "cloud").replace("clear", "sun");
-		document.getElementsByClassName("g")[0].className = "climacon "+data[data.length-1].value.main.toLowerCase().replace("clouds", "cloud").replace("clear", "sun");
+		document.getElementsByClassName("temperature")[0].innerHTML = parseFloat(data[data.length-9].value.day).toFixed(0);
+		document.getElementsByClassName("c1")[0].innerHTML = parseFloat(data[data.length-9].value.pressure).toFixed(0)+" pressure";
+		document.getElementsByClassName("c2")[0].innerHTML = parseFloat(data[data.length-9].value.humidity).toFixed(0)+"% humidity";
+		currectloction = data[data.length-9].value.name;
+		document.getElementsByClassName("week-day")[0].innerHTML = day(data[data.length-8].value.datetime);
+		document.getElementsByClassName("week-day")[1].innerHTML = day(data[data.length-7].value.datetime);
+		document.getElementsByClassName("week-day")[2].innerHTML = day(data[data.length-6].value.datetime);
+		document.getElementsByClassName("week-day")[3].innerHTML = day(data[data.length-5].value.datetime);
+		document.getElementsByClassName("week-day")[4].innerHTML = day(data[data.length-4].value.datetime);
+		document.getElementsByClassName("week-day")[5].innerHTML = day(data[data.length-3].value.datetime);
+		document.getElementsByClassName("week-day")[6].innerHTML = day(data[data.length-2].value.datetime);
+		document.getElementsByClassName("week-day-temperature")[0].innerHTML = parseFloat(data[data.length-8].value.day).toFixed(0);
+		document.getElementsByClassName("week-day-temperature")[1].innerHTML = parseFloat(data[data.length-7].value.day).toFixed(0);
+		document.getElementsByClassName("week-day-temperature")[2].innerHTML = parseFloat(data[data.length-6].value.day).toFixed(0);
+		document.getElementsByClassName("week-day-temperature")[3].innerHTML = parseFloat(data[data.length-5].value.day).toFixed(0);
+		document.getElementsByClassName("week-day-temperature")[4].innerHTML = parseFloat(data[data.length-4].value.day).toFixed(0);
+		document.getElementsByClassName("week-day-temperature")[5].innerHTML = parseFloat(data[data.length-3].value.day).toFixed(0);
+		document.getElementsByClassName("week-day-temperature")[6].innerHTML = parseFloat(data[data.length-2].value.day).toFixed(0);
+		document.getElementsByClassName("a")[0].className = "climacon "+data[data.length-8].value.main.toLowerCase().replace("clouds", "cloud").replace("clear", "sun");
+		document.getElementsByClassName("b")[0].className = "climacon "+data[data.length-7].value.main.toLowerCase().replace("clouds", "cloud").replace("clear", "sun");
+		document.getElementsByClassName("c")[0].className = "climacon "+data[data.length-6].value.main.toLowerCase().replace("clouds", "cloud").replace("clear", "sun");
+		document.getElementsByClassName("d")[0].className = "climacon "+data[data.length-5].value.main.toLowerCase().replace("clouds", "cloud").replace("clear", "sun");
+		document.getElementsByClassName("e")[0].className = "climacon "+data[data.length-4].value.main.toLowerCase().replace("clouds", "cloud").replace("clear", "sun");
+		document.getElementsByClassName("f")[0].className = "climacon "+data[data.length-3].value.main.toLowerCase().replace("clouds", "cloud").replace("clear", "sun");
+		document.getElementsByClassName("g")[0].className = "climacon "+data[data.length-2].value.main.toLowerCase().replace("clouds", "cloud").replace("clear", "sun");
 		checkCookie();
-		getfav();
+	
+      getfav();
 });
 
 }
-function getfav(){
-ajax_get('/getfav', function(data1) {
+function getfav(){  // get favourite list
+ajax_get('/getfav?user='+getCookie("username"), function(data1) {
 		var data = $(data1).filter(function (i,n){return n.value.loc!=null});
 		data = $(data).filter(function (i,n){return n.value.uid===getCookie("username")});
 		var html = "";
@@ -113,13 +115,13 @@ ajax_get('/getfav', function(data1) {
 		document.getElementById("fav").innerHTML = html;
 });
 }
-function remove(id,rev){
+function remove(id,rev){   // remove favourite list item
 	ajax_get("/remove?id="+id+"&rev="+rev, function(data1) {
 	});
 	alert("Remove from your favourite list successfully.");
 		 window.location='index.html';
 }
-function checkCookie() {
+function checkCookie() {  // get username
     var username=getCookie("username");
     if (username!="") {
         document.getElementById("log").style.display = "none";
@@ -133,7 +135,7 @@ function checkCookie() {
 		document.getElementById("add").style.display = "none";
     }
 }
-function getCookie(cname) {
+function getCookie(cname) {   //get cookie
     var name = cname + "=";
     var ca = document.cookie.split(';');
     for(var i = 0; i < ca.length; i++) {
@@ -147,7 +149,7 @@ function getCookie(cname) {
     }
     return "";
 }
-function add(){
+function add(){  // add favourite list item.
 	ajax_get("/add?loc="+currectloction+"&name="+getCookie("username"), function(data1) {
 	});
 	alert("Add to my favourite list successfully!");
