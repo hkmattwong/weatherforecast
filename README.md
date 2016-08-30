@@ -19,6 +19,6 @@ This chat example showcases how to use `socket.io` with a static `express` serve
 
     $ node index.js
 
-Once the server is running, open the project in the shape of 'https://assignment2-mattwong.c9users.io:8081/index.html'.
-CouchDB link:　https://assignment2-mattwong.c9users.io:8080/_utils/
-Youtube Video Demo link: https://www.youtube.com/watch?v=eleC84gLsl4
+Once the server is running, open the project in the shape of 'https://assignment2-mattwong.c9users.io:8081/index.html'.<br>
+CouchDB link:　https://assignment2-mattwong.c9users.io:8080/_utils/ <br>
+Youtube Video Demo link: https://www.youtube.com/watch?v=eleC84gLsl4<br>
