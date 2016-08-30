@@ -6,9 +6,9 @@ var request = require("request")
 //test get the default weather function
 request.get({url:'https://assignment2-mattwong.c9users.io:8081/getweather', }, function optionalCallback(err, httpResponse, body) {
   if (err) {
-    return console.error('Create account failed:', err);
+    return console.error('get weather failed:', err);
   }
-  console.log('Create account successful!');
+  console.log('get weather successful!');
 });
 
 //test search the default weather function

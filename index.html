@@ -2,6 +2,7 @@
 <html>
    <head>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <title>Weather Forecast</title>
@@ -12,24 +13,23 @@
       <link rel="stylesheet" href="climacon.css">
 	  <script>
 	  var weekday=new Array(7);
-weekday[0]="Monday";
-weekday[1]="Tuesday";
-weekday[2]="Wednesday";
-weekday[3]="Thursday";
-weekday[4]="Friday";
-weekday[5]="Saturday";
-weekday[6]="Sunday";
-console.log("Today is " + weekday[3]);
-var currectloction="";
+         weekday[0]="Monday";
+         weekday[1]="Tuesday";
+         weekday[2]="Wednesday";
+         weekday[3]="Thursday";
+         weekday[4]="Friday";
+         weekday[5]="Saturday";
+         weekday[6]="Sunday";
+      var currectloction="";
 		function timeConverter(UNIX_timestamp){  // change the time
 			var eleDate = new Date(parseInt(UNIX_timestamp)*1000);
 		return eleDate.getFullYear()+"-"+("0" + (eleDate.getMonth() + 1)).slice(-2)+"-"+("0" + eleDate.getDate()).slice(-2)+" "
 		+("0" + eleDate.getHours()).slice(-2)+":"+("0" + eleDate.getMinutes()).slice(-2)+":"+("0" + eleDate.getSeconds()).slice(-2);
 
 		}
-function ajax_get(url, callback) {   // get the data
-    xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
+      function ajax_get(url, callback) {   // get the data
+         xmlhttp = new XMLHttpRequest();
+         xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             console.log('responseText:' + xmlhttp.responseText);
             try {
@@ -62,7 +62,8 @@ function search(name,e){   // search the location
 function search2(e){	  // search the location
 	ajax_get("/search?loc="+e.innerHTML, function(data1) {
 	});
-		setTimeout(function(){ window.location='index.html'; }, 3000);
+	
+	setTimeout(function(){ window.location='index.html'; }, 3000);
 }
 
 function start(){    // start run
@@ -109,10 +110,19 @@ ajax_get('/getfav?user='+getCookie("username"), function(data1) {
 		var data = $(data1).filter(function (i,n){return n.value.loc!=null});
 		data = $(data).filter(function (i,n){return n.value.uid===getCookie("username")});
 		var html = "";
+		var array = [];
 		for (var i=0;i<data.length;i++){
 			html += '<div style="display: inline-block;" onclick="search2(this);">'+data[i].value.loc+'</div>&nbsp;&nbsp;<div style="display: inline-block;" onclick=\'remove("'+data[i].value._id+'","'+data[i].value._rev+'");\'><img width="32px" src="img/remove.png"/></div><p>';
+		   array.push(data[i].value.loc);
 		}
 		document.getElementById("fav").innerHTML = html;
+		var app = angular.module("myList", []);
+      app.controller("myCtrl", function($scope) {
+       $scope.products = array;
+       $scope.addItem = function () {
+        $scope.products.push($scope.addMe);
+    }
+});
 });
 }
 function remove(id,rev){   // remove favourite list item

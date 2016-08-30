@@ -61,9 +61,16 @@ request({
 	var num = new Date().getTime()+''
 	test_db.insert(data,num,function(err,body){
 		if(!err){
+			
 			console.log('Insert favourite completed');
+				res.setHeader('Content-Type', 'application/json');
+				res.json({"result": true});
+                res.send();
 		}else{
 			console.log(err);
+				res.setHeader('Content-Type', 'application/json');
+				res.json({"result": false});
+                res.send();
 		}
 	})
 
@@ -118,6 +125,9 @@ app.get('/remove', function(req, res){
 	test_db.destroy(req.param("id"), req.param("rev"), function(err, body, header) {
 		if (!err) {
 			console.log("Successfully deleted doc", req.param("id"));
+				res.setHeader('Content-Type', 'application/json');
+				res.json({"result": true});
+                res.send();
 		}
 	});
 });
@@ -212,7 +222,7 @@ request({
 		if(!err){
 			console.log('Insert completed');
 		}else{
-			console.log(err);
+			console.log(err);	
 		}
 	})
 		}
